@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
 import { View, Text } from '@tarojs/components'
-import { AtTabs, AtTabsPane } from 'taro-ui'
+import { AtTabs, AtTabsPane, AtList, AtListItem } from 'taro-ui'
 import api from '../../utils/api'
+import TestItem from '../../components/TestList/index'
 import './index.scss'
 
 const tabList = [
@@ -16,21 +17,22 @@ export default class Explore extends Component {
   constructor () {
     super(...arguments)
     this.state = {
-      current: 0,
-      categoryData: []
+      current: 0,    //  一级分类idx
+      cateIndex: 22, // test下分类idx
+      categoryList: [], 
+      categoryData: [] 
     }
     this.handleTabs = this.handleTabs.bind(this)
+    this.handleCategory = this.handleCategory.bind(this)
   }
 
   render () {
-    const { current } = this.state
+    const { current, cateIndex, categoryData } = this.state
     return (
       <View className='index'>
         <AtTabs current={current} scroll tabList={tabList} onClick={this.handleTabs}>
-        <AtTabsPane current={current} index={0} >
-          <View className="tab-wrap" >
-            
-          </View>
+        <AtTabsPane current={current} index={0} >    
+           <TestItem></TestItem>
         </AtTabsPane>
         <AtTabsPane current={current} index={1}>
           <View>标签页二的内容</View>
@@ -54,6 +56,11 @@ export default class Explore extends Component {
   handleTabs (value) {
     this.setState({
       current: value
+    })
+  }
+  handleCategory(val) {
+    this.setState({
+      cateIndex: val
     })
   }
 
