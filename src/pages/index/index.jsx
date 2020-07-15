@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import { View, Text, Swiper, SwiperItem } from '@tarojs/components'
-import { AtTabBar } from 'taro-ui'
-import { menus } from './constdata'
+
 import api from '../../utils/api'
 import './index.scss'
 
@@ -16,7 +15,7 @@ export default class Index extends Component {
     this.handleMenu = this.handleMenu.bind(this)
   }
   render () {
-    const { current, bannerData } = this.state
+    const {  bannerData } = this.state
     return (
       <View className='index'>
         <Swiper
@@ -33,13 +32,9 @@ export default class Index extends Component {
               )
             })}
         </Swiper>
-        <view className="tab">
-        <AtTabBar
-          tabList={menus}
-          onClick={this.handleMenu}
-          current={current}
-        />
-        </view>
+        <View className="tab">
+
+        </View>
       </View>
     )
   }

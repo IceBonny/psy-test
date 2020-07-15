@@ -1,4 +1,4 @@
-export const menus = [
+export default menus = [
     {
       title:"心理测评",
       image:'../../assets/images/health.png'

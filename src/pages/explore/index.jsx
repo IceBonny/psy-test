@@ -1,75 +1,48 @@
-import Taro, { Component } from '@tarojs/taro'
+import React, { Component } from 'react'
 import { View, Text } from '@tarojs/components'
-import { AtTabs, AtTabsPane } from 'taro-ui'
-import api from '../../utils/api'
-// import TabsControl from '../../components/tabsControl/index'
-import { ClTabs } from 'mp-colorui'
-// import './index.scss'
 
-const tabList = [
-  { title: '心理测评' }, 
-  { title: '咨询服务' }, 
-  { title: '线上课程' },
-  { title: '心理成长活动'},
-  { title: '心理测评通用平台'},
-  { titile: '员工辅助计划（EAP）'}
-]
+import api from '../../utils/api'
+import TabsControl from '../../components/tabsControl/index'
+
+import './index.scss'
+
 export default class Explore extends Component {
   constructor () {
     super(...arguments)
     this.state = {
-      current: 0,    //  一级分类idx
-      currentNavtab: 0, // test下分类idx
       categoryList: [],  //全部分类列表
-      categoryData: [],  //按分类列表获取的数据
+      testData: [],  //按分类列表获取的数据
       consultantList: [], //全部咨询师
       growList: [], //心理成长活动列表
     }
-    this.handleTabs = this.handleTabs.bind(this)
-    this.handleCategory = this.handleCategory.bind(this)
+    // this.getPsyTestByCategory= this.getPsyTestByCategory.bind(this)
   }
 
   render () {
-    const { current, categoryList } = this.state
+    const { categoryList, testData } = this.state
     return (
       <View className='index'>
-        <AtTabs current={current} scroll tabList={tabList} onClick={this.handleTabs}>
-          <AtTabsPane current={current} index={0} >
-          <ClTabs tabs={categoryList} type='center'>
-            {categoryList.map(item => (
-              <View key={item.category_id} id={item.category_id}>
-                {item.category_name}
-              </View>
-            ))}
-          </ClTabs>
-            {/* <TabsControl>
-              <View name="社会新闻">
-                  社会新闻的内容
-              </View>
-              <View name="体育世界">
-                  体育世界的内容
-              </View>
-              <View name="娱乐圈">
-                  娱乐圈的内容
-              </View>
-            </TabsControl>   */}
-          </AtTabsPane>
-          <AtTabsPane current={current} index={1}>
-            <View>标签页二的内容</View>
-          </AtTabsPane>
-          <AtTabsPane current={current} index={2}>
-            <View>标签页三的内容</View>
-          </AtTabsPane>
-          <AtTabsPane current={current} index={3}>
-            <View>标签页三的内容</View>
-          </AtTabsPane>
-          <AtTabsPane current={current} index={4}>
-            <View>标签页三的内容</View>
-          </AtTabsPane>
-          <AtTabsPane current={current} index={5}>
-            <View>标签页三的内容</View>
-          </AtTabsPane>
-        </AtTabs>
+         <TabsControl>
+           <View name="心理测评">
+            <TabsControl className='testcate'>
+              {categoryList.map((item,id) => 
+                <View name={item.category_name} key={item.category_id} onClick={(item) => this.getPsyTestByCategory()}>
+                  {
+                    testData.map((val,idx) =>
+                    <View>{ val.name}</View>
+                    )
+                  }
+                </View>
+              )}
+            </TabsControl>
+           </View>
+           <View name="咨询服务"></View>
+           <View name="线上课程"></View>
+           <View name="心理成长活动"></View>
+           <View name="心理测评通用平台"></View>
+           <View name="员工辅助计划（EAP）"></View>
+				</TabsControl>
+
       </View>
     )
   }
@@ -79,24 +52,14 @@ export default class Explore extends Component {
 
   componentDidMount () { }
 
-  handleTabs (value) {
-    this.setState({
-      current: value
-    })
-  }
-  handleCategory(val) {
-    this.setState({
-      cateIndex: val
-    })
-  }
+
   // 获取全部分类列表
   getCategoryData() {
     api.get('/discover/getCategoryList').then((res) => {
       const data = res.data.data
       this.setState({
-        categoryData: data
+        categoryList: data
       })
-      console.log('categoryData',res.data.data)
     })
   }
   // 获取全部咨询师
@@ -107,6 +70,16 @@ export default class Explore extends Component {
         consultantList: data
       })
       console.log('getConsultantList',res.data.data)
+    })
+  }
+  //按分类获取心理测试
+  getPsyTestByCategory(val) {
+    api.get('/discover/getPsyTestByCategory',{category_id: val.category_id})
+    .then((res) => {
+      const data = res.data.data
+      this.setState({
+        testData: data
+      })
     })
   }
   // 按标签获取心理咨询师
