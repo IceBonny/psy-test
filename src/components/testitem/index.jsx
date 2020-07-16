@@ -7,11 +7,9 @@ class TestItem extends Component{
     return (
       <View>
         <View>{testItem.name}</View>
-        <View>年龄：{testItem.introduction}</View>
-        {/* <hr /> */}
+        <View>简介：{testItem.introduction}</View>
       </View>
     )
   }
 }
-
 export default TestItem
