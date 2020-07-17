@@ -2,6 +2,10 @@ View {
   font-size: 22px;
   color: black;
 }
-.testcate {
-  margin-top: 2px;
+.tab-content {
+  .test-item {
+    background-color: fuchsia;
+    color: black;
+    font-size: 26px;
+  }
 }

@@ -1,21 +1,43 @@
 import React, { Component } from 'react'
-import { View, Text, Swiper, SwiperItem } from '@tarojs/components'
+import { View, Text, Swiper, SwiperItem, ScrollView,Image  } from '@tarojs/components'
 
 import api from '../../utils/api'
 import './index.scss'
+import img1 from '../../assets/images/health.png'
+import img2 from '../../assets/images/consult.png'
+import img3 from '../../assets/images/online_course.png'
+import img4 from '../../assets/images/eap.png'
 
 export default class Index extends Component {
   constructor () {
-    super(...arguments)
+    super()
     this.state = {
-      current: 0,
+      currentNavtab: 0,
       bannerData: [],
+      navTab: [
+        {
+          name:'心理测评',
+          img: img1,
+        },
+        {
+          name:'心理咨询',
+          img: img2,
+        },
+        {
+          name:'线上课程',
+          img: img3,
+        },
+        {
+          name:'EAP',
+          img: img4,
+        },
+       
+      ],
       testData: [],
     }
-    this.handleMenu = this.handleMenu.bind(this)
   }
   render () {
-    const {  bannerData } = this.state
+    const {  bannerData, currentNavtab,navTab } = this.state
     return (
       <View className='index'>
         <Swiper
@@ -32,9 +54,31 @@ export default class Index extends Component {
               )
             })}
         </Swiper>
-        <View className="tab">
-
+        <View className='top-tab flex-wrp flex-tab' >
+        {
+          navTab.map((item,index) => {
+            return (<View className={currentNavtab === index ? 'toptab flex-item active' : 'toptab flex-item' } key={index} 
+            onClick={this.switchTab.bind(this,index)}>
+              <Image src={item.img} className='icon'></Image>
+              <Text className='text'>{item.name}</Text>
+            </View>)
+          })
+        }
         </View>
+        <ScrollView scroll-y className='container withtab'>
+          <View className={currentNavtab==0 ? 'show' : 'hide'}>
+              心理测试
+          </View>
+            <View className={currentNavtab==1 ? 'show' : 'hide'}>
+              <Text>心理咨询</Text>
+            </View>
+            <View className={currentNavtab==2 ? 'show' : 'hide'}>
+              <Text>课程</Text>
+            </View>
+            <View className={currentNavtab==3 ? 'show' : 'hide'}>
+              <Text>eap</Text>
+            </View>
+        </ScrollView>
       </View>
     )
   }
@@ -46,34 +90,12 @@ export default class Index extends Component {
   componentDidMount () { 
   }
 
-  handleMenu (value) {
+  switchTab(index,e) {
     this.setState({
-      current: value
-    })
-    switch (value) {
-      case 0:
-          Taro.redirectTo({
-              url: `/pages/index/index`
-          })
-          break;
-      case 1:
-          Taro.redirectTo({
-              url: `/pages/pinglun/index`
-          })
-          break;
-      case 2:
-          Taro.redirectTo({
-              url: `/pages/yindao/index`
-          })
-          break;
-      case 3:
-          Taro.redirectTo({
-              url: `/pages/wode/index`
-          })
-          break;            
-      default:
-          break;
-    }
+      currentNavtab: index
+    },()=> {
+      console.log('rrrrr',index)
+    });
   }
   
   getBannerData() {
