@@ -1,0 +1,64 @@
+.detail {
+  width: 100%;
+  height: 100%;
+  Button {
+    background-color: orange;
+    border-radius: 20%;
+  }
+  .img-wrap, .eap-wrap{
+    display: flex;
+    width: 100%;
+    text-align: center;
+    justify-content: center; 
+    .test_detailImg, .eap_detailImg{
+      width: 100%;
+    }
+  }
+  .con-wrap {
+    width: 100%;
+    height: 100%;
+    .con-item {
+      .item-title {
+        margin: 20rpx 0 20rpx 20rpx;
+        font-size: 40rpx;
+        height: 80rpx;
+        line-height: 80px;
+      }
+      
+      .condetail {
+        display: flex;
+        height: 280rpx;
+        background-color: bisque;
+        padding: 20rpx;
+        .item-img {
+          width: 220rpx;
+          height: auto;
+          margin-right: 20rpx;
+          border: 1px solid black;
+        }
+        .item-main {
+          flex: 1;
+          margin-left: 10rpx;
+          width: 90%;
+          align-items: stretch;
+        }
+        .item-tit {
+          font-size: 34rpx;
+          height: 50rpx;
+        }
+        .item-form {
+          display: flex;
+          justify-content: space-between;
+          margin-top: 120rpx;
+          Text {
+             display: flex;
+             justify-content: space-between;
+          }
+        }
+      }
+    }
+    .item-detailimg {
+      width: 100%;
+    }
+  }
+}

@@ -35,13 +35,13 @@ export default class Explore extends Component {
   constructor () {
     super(...arguments)
     this.state = {
-      navTabActive: 0,
-      testTab: 0,
-      categoryList: [],  //全部分类列表
-      testData: [],  //按分类列表获取的数据
+      navTabActive: 0,     
+      testTab: 0,             //test二级分类标识
+      categoryList: [],       //全部分类列表
+      testData: [],           //按分类列表获取的数据
       // consultantList: [], //全部咨询师
-      // courseData: [], //全部线上课程
-      // growList: [], //心理成长活动列表
+      // courseData: [],     //全部线上课程
+      // growList: [],       //心理成长活动列表
     }
     // this.getPsyTestByCategory= this.getPsyTestByCategory.bind(this)
     // this.getCourseList = this.getCourseList.bind(this)
@@ -64,14 +64,23 @@ export default class Explore extends Component {
             <View className={navTabActive==0 ? 'show' : 'hide'}>
               <View className='test-tab ex-wrp ex-tab'>
                 {categoryList.map((item,index) => 
-                  <View key={item.category_id} className={testTab === item.category_id ? 'ex-item active' : 'ex-item'} 
-                    onClick={this.testToggle.bind(this,item.category_id)}>
-                      {item.category_name}
-                  </View>
+                  {return (
+                    <View key={item.category_id} className={testTab === item.category_id ? 'ex-item active' : 'ex-item'} 
+                      onClick={this.testToggle.bind(this, index, item.category_id)}>
+                        {item.category_name}
+                    </View>
+                  )}
                 )}
               </View>
               <View className='test-content'>
-                <View className='show'></View>
+                <View>
+                  {testData.map((item,index) => {
+                    <View key={item.test_id} className={ testTab === item.category_id ? 'show test-item': 'hide'}>
+                      {item.name}
+                      {item.introduction}
+                    </View>
+                  })}
+                </View>
               </View>
             </View>
             <View className={navTabActive==1 ? 'show' : 'hide'}>
@@ -110,11 +119,13 @@ export default class Explore extends Component {
       console.log('rrrrr',index)
     });
   }
-  testToggle(id,e) {
-    this.getPsyTestByCategory(id)
+  testToggle(index, id, e) {
     this.setState({
       testTab: id
-    })    
+    })  
+    console.log('toggle', id)
+    this.getPsyTestByCategory(id)
+      
   }
   // 获取全部分类列表
   getCategoryData() {
@@ -135,11 +146,18 @@ export default class Explore extends Component {
   //     console.log('getConsultantList',res.data.data)
   //   })
   // }
+  rendertestList(item) {
+    return 
+    <View key={item.text} onClick={() => console.log(item.text)}>
+      <Text>{item.text}</Text>
+    </View>
+  }
   //按分类获取心理测试
   getPsyTestByCategory(val)  {
     api.get('/discover/getPsyTestByCategory',{category_id: val})
     .then((res) => {
       const data = res.data.data
+      console.log('const data = res.data.data' ,data)
       this.setState({
         testData: data
       })

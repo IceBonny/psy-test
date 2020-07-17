@@ -1,8 +1,10 @@
 export default {
   pages: [
+    'pages/init/index',
     'pages/index/index',
     'pages/explore/index',
-    'pages/mine/index'
+    'pages/mine/index',
+    'pages/indexDetail/index'
   ],
   window: {
     backgroundTextStyle: 'light',

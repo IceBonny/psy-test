@@ -5,10 +5,34 @@
  * @LastEditors: Bonny.meng
  * @LastEditTime: 2020-07-13 23:13:10
  */ 
-import { Component } from 'react'
+import React, { Component } from 'react'
+import Taro from '@tarojs/taro'
 import './app.scss'
 
 class App extends Component {
+
+  componentWillMount() {
+    Taro.getSetting()
+      .then(res=>{
+        if(res.authSetting["scope.userInfo"]){
+          return true;
+        }else {
+          throw new Error('没有授权')
+        }
+      })
+      .then(res=>{
+        return Taro.getUserInfo();
+      })
+      .then(res=>{
+        Taro.setStorage({
+          key: 'userInfo',
+          data: res.userInfo
+        })
+      })
+      .catch(err=>{
+        console.log(err)
+      })  
+  }
 
   componentDidMount () {}
 

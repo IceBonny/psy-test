@@ -1,13 +1,10 @@
 .show {
-  display: flex;
+  display: block;
 }
 .hide {
   display: none;
 }
-.icon {
-  width: 80px;
-  height: 80px;
-}
+
 scrollbar { width: 0 !important }
 .container{
   height: 1500px;
@@ -35,12 +32,11 @@ scrollbar { width: 0 !important }
 }
 
 .container {
-  min-height: 1200px;
+  height: auto;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
-  /*padding: 200px 0;*/
   box-sizing: border-box;
   width:100%;
   background: #F0F4F3;
@@ -49,7 +45,7 @@ scrollbar { width: 0 !important }
   color: #000;
 
   &.withtab{
-    margin: 105px 0 0 0;
+    margin: 0 0 0 0;
   }
 
 }
@@ -96,7 +92,7 @@ scrollbar { width: 0 !important }
   }
 }
 .top-tab{
-  width: 750px;
+  width: 100%;
   height: 100px;
   background: #fc9e32;
   color: #111111;
@@ -104,8 +100,6 @@ scrollbar { width: 0 !important }
   line-height: 100px;
   box-shadow: 0 2px 2px #bebebe;
   margin: 0 0 8px 0;
-  position: fixed;
-  top: 440;
   z-index: 9999;
 
   &.active{
