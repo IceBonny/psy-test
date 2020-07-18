@@ -1,6 +1,5 @@
 export default {
   pages: [
-    'pages/init/index',
     'pages/index/index',
     'pages/explore/index',
     'pages/mine/index',
@@ -28,8 +27,8 @@ export default {
       {
         pagePath: 'pages/explore/index',
         text: '发现',
-        iconPath: './assets/images/my.png',
-        selectedIconPath: './assets/images/my@selected.png'
+        iconPath: './assets/images/explore.png',
+        selectedIconPath: './assets/images/explore@selected.png'
       },
       {
         pagePath: 'pages/mine/index',

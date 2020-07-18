@@ -2,6 +2,41 @@ View {
   font-size: 22px;
   color: black;
 }
+.show {
+  display: block;
+}
+.hide {
+  display: none;
+}
+::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+  color: transparent;
+}
+.ex-wrp{
+display: flex;
+justify-content: flex-start;
+align-items: center;
+width: auto;
+background-color: rgb(255, 187, 0);
+}
+.active {
+color: #ffffff !important;
+border-bottom: solid 2px #ffffff;
+}
+.ex-tab{
+width: auto;
+white-space: nowrap;
+overflow-x: scroll;
+}
+.ex-item {
+height: 80px;
+margin: 0 15px;
+line-height: 80px;
+font-size: 30px;
+color: rgb(24, 23, 23);
+}
+scrollbar { width: 0 !important }
 .tab-content {    
   min-height: 1200px;
   background-image: url('../../assets//images/exbg.jpeg');

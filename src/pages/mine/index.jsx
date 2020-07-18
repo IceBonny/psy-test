@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
 import Taro from "@tarojs/taro"
-import { View, Button, Image } from "@tarojs/components"
+import { View, Button, Image, Text } from "@tarojs/components"
 import './index.scss'
-// import  loginFile from '../../asset/images/login-arranging.png'
+import defaultImg from '../../assets/images/default_avatar.jpeg'
 const httpurl = 'http://www.rexjoush.com:3000/wxapp/my/getOpenId'
 
 export default class Login extends Component {
@@ -65,7 +65,8 @@ export default class Login extends Component {
     })
   }
   //登录
-    getLogin =(val,iv) => {
+    getLogin =() => {
+      const { encryptedData, iv } = this.state
     Taro.login({
       success: function (res) {
         if (res.code) {
@@ -74,7 +75,7 @@ export default class Login extends Component {
             url:  httpurl,
             data: {
               code: res.code,
-              encryptedData: val,
+              encryptedData: encryptedData,
               iv: iv
             }
           })
@@ -98,16 +99,20 @@ export default class Login extends Component {
     )
       console.log('---iv----', res.iv)
       console.log('encryptedData', res.encryptedData)
+      console.log(' res.userInfo',  res.userInfo)
     }).catch( err => console.log(err) )
   }
   // 用户授权操作后按钮回调
   onGotUserInfo = res => {
+    Taro.switchTab({
+      url: '/pages/mine/index'
+    })
     if(res.detail.userInfo){ // 返回的信息中包含用户信息则证明用户允许获取信息授权
       console.log('授权成功')
     }else{ // 用户取消授权，进行提示，促进重新授权
       Taro.showModal({
         title: '温馨提示',
-        content: '简单的信任，是你我俩故事的开始',
+        content: '简单的信任，是我们故事的开始',
         showCancel: false
       })
         .then(ModalRes => {
@@ -120,11 +125,47 @@ export default class Login extends Component {
   render() {
     const { oauthBtnStatus, userInfo, btnText } = this.state
     return (
-      <View className='login-page'>
+      <View className='mine-page'>
+        { oauthBtnStatus ? <Button className='login-btn' type='warn' openType='getUserInfo' onGetUserInfo={this.onGotUserInfo}>{btnText}</Button> : ''}
+        <View className='mine-item'>
+          { userInfo ? 
+            <Image src={userInfo.avatarUrl} className='my-avatar' /> 
+            : 
+            <Image src={defaultImg}  className='my-avatar' />
+          }
+          { userInfo ? 
+            <View className='my-info'>
+              <View className='info-name'>{userInfo.nickName}</View>
+              <View className='info-city'>{userInfo.country}
+                &nbsp;&nbsp;|&nbsp;&nbsp;{userInfo.province}</View>
+            </View>
+          : <View>获取信息失败</View>}
+        </View>
         {/* <Image src={loginFile} mode='aspectFit' className='login-img' /> */}
-        { oauthBtnStatus ? <Button className='login-btn' openType='getUserInfo' onGetUserInfo={this.onGotUserInfo}>{btnText}</Button> : ''}
-        { userInfo ? JSON.stringify(userInfo) : ''}
-        { userInfo ? <Image src={userInfo.avatarUrl} /> : ''}
+        <View className='mine-nav'>
+            <View className='item-content' >
+              <Text className='text iconfont icon-chakan'>
+                &nbsp;&nbsp;心理测评 &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&gt;
+              </Text>
+            </View>
+            <View className='item-content' >
+              <Text className='text iconfont icon-xingxing'>
+                &nbsp;&nbsp;心理咨询 &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&gt;
+              </Text>
+            </View>
+
+            <View className='item-content' >
+              <Text className='text iconfont icon-kecheng-'>
+                &nbsp;&nbsp;心理课程 &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&gt;
+              </Text>
+            </View>
+            <View className='item-content' >
+              <Text className='text iconfont icon-chengchang'>
+                &nbsp;&nbsp;心理成长活动 &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&gt;
+              </Text>
+            </View>
+        </View>
+        <Button type='warn' style='width:70%;margin-top:70px;font-size:14px'>关于我们</Button>
       </View>
     )
   }
