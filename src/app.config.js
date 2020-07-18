@@ -4,7 +4,9 @@ export default {
     'pages/index/index',
     'pages/explore/index',
     'pages/mine/index',
-    'pages/indexDetail/index'
+    'pages/indexDetail/index',
+    'pages/exploreDetail/index',
+    'pages/reservation/index'
   ],
   window: {
     backgroundTextStyle: 'light',

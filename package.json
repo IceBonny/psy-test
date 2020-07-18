@@ -37,12 +37,14 @@
   "dependencies": {
     "@babel/runtime": "^7.7.7",
     "@tarojs/components": "3.0.2",
+    "@tarojs/plugin-sass": "^2.2.10",
     "@tarojs/react": "3.0.2",
     "@tarojs/runtime": "3.0.2",
     "@tarojs/taro": "3.0.2",
     "react": "^16.10.0",
     "react-dom": "^16.10.0",
-    "react-tabs": "^3.1.1"
+    "react-tabs": "^3.1.1",
+    "taro-ui": "^2.3.4"
   },
   "devDependencies": {
     "@babel/core": "^7.8.0",
