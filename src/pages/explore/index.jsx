@@ -60,6 +60,7 @@ export default class Explore extends Component {
             </View>
             <View className={navTabActive==1 ? 'show' : 'hide'}>
               <Text>心理咨询</Text>
+              {/* TODO 二级分类 */}
             </View>
             <View className={navTabActive==2 ? 'show courseList' : 'hide'}>
               {courseData.map((item,index) => {
@@ -74,16 +75,16 @@ export default class Explore extends Component {
               })}
             </View>
             <View className={navTabActive==3 ? 'show courseList' : 'hide'}>
-            {growList.map((item,index) => {
-                return(
-                  <View key={item.course_id}  className='course-item'
-                  onClick={this.gocourseDetail.bind(this, item.course_id)}
-                  >
-                   <Text className='item-title'>课程名称：{item.title}</Text> 
-                   <Text className='item-price'>价格：{item.price}</Text> 
-                  </View>
-                )
-              })}
+              {growList.map((item,index) => {
+                  return(
+                    <View key={item.course_id}  className='course-item'
+                    onClick={this.gocourseDetail.bind(this, item.course_id)}
+                    >
+                    <Text className='item-title'>课程名称：{item.title}</Text> 
+                    <Text className='item-price'>价格：{item.price}</Text> 
+                    </View>
+                  )
+                })}
             </View>
             <View className={navTabActive==4 ? 'show' : 'hide'}>
               <Text>心理测评通用平台</Text>
@@ -193,6 +194,25 @@ export default class Explore extends Component {
         growList: data
       })
       console.log('growList',res.data.data)
+    })
+  }
+  //心理测试 二级页面
+  gotoPsyTest(testid, e) {
+    Taro.navigateTo({
+      url: `/pages/indexDetail/index?testid=${encodeURIComponent(testid)}`
+    })
+  }
+  //课程-二级页面
+  gotoCourse(coureseid, e) {
+    Taro.navigateTo({
+      url: `/pages/indexDetail/index?coureseid=${encodeURIComponent(coureseid)}`
+    })
+  }
+
+  //心理成长活动 跳转二级
+  gotoGrow(growid, e) {
+    Taro.navigateTo({
+      url: `/pages/indexDetail/index?growid=${encodeURIComponent(growid)}`
     })
   }
 }

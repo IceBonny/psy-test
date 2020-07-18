@@ -213,7 +213,7 @@ export default class Index extends Component {
 
   goconDetail(conid, e) {
     Taro.navigateTo({
-      url: `/pages/indexDetail/index?conid=${encodeURIComponent(conid)}`
+      url: `/pages/exploreDetail/index?conid=${encodeURIComponent(conid)}`
     })
   }
 
