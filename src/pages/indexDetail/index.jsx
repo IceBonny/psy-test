@@ -9,7 +9,7 @@ export default class Detail extends Component {
       test_id: '',
       testData: [],
       consultant_id: '',
-      conData: [],
+      // conData: [],
       course_id: '',
       courseData: [],
       eapData: []
@@ -29,10 +29,12 @@ export default class Detail extends Component {
           }
           <View className='fixed-foot' className={ test_id ? 'show' : 'hide'}>
             <Button onClick={this.gotoPay.bind(this,test_id)}
+              type='warn' 
+              className='payBtn'
             >开始测试</Button>
           </View>
         </View>
-        <View className='con-wrap'>
+        {/* <View className='con-wrap'>
           {
             conData.map((item,index) => {
               return(
@@ -54,11 +56,11 @@ export default class Detail extends Component {
               )
             })
           }
-        </View>
+        </View> */}
         <View className='course-wrap'>
       
         </View>
-        <View className='eap-wrap'>
+        <View className={ !test_id && !course_id ? 'eap-wrap' : 'hide'}>
         {
             eapData.map((item,index) => {
               return(
@@ -81,18 +83,18 @@ export default class Detail extends Component {
   getId() {
     let url = this.props.tid
     let testId = this.queryURLParams(url, "testid")
-    let conId = this.queryURLParams(url, "conid")
+    // let conId = this.queryURLParams(url, "conid")
     let courseId = this.queryURLParams(url, "courseid")
     let eapId = this.queryURLParams(url, "eapid")
-    console.log('--res',testId,conId,courseId,eapId)
+    console.log('--res',testId,courseId,eapId)
     this.setState({
       test_id: testId,
-      consultant_id: conId,
+      // consultant_id: conId,
       course_id: courseId,
       eap_id: eapId
     },() => {
       this.getTest(testId)
-      this.getConData(conId)
+      // this.getConData(conId)
       this.getCourseData(courseId)
       this.getEapdetail(eapId)
     })
@@ -106,7 +108,7 @@ export default class Detail extends Component {
     return res[1];
   }
   gotoPay(id, w) {
-    console.log('---------id', id)
+    console.log('---gotoPay------id', id)
   }
   
 

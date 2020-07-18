@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import Taro from '@tarojs/taro'
 import { View, Text, Image } from '@tarojs/components'
 
 import api from '../../utils/api'
@@ -49,7 +50,9 @@ export default class Explore extends Component {
                 <View>
                   {testData.map((item,index) => {
                     return(
-                      <View key={item.test_id} className={ testTab === item.category_id ? 'show test-item': 'hide'}>
+                      <View key={item.test_id} className={ testTab === item.category_id ? 'show test-item': 'hide'}
+                      onClick={this.gotoPsyTest.bind(this, item.test_id)}
+                      >
                         {item.name}
                         {item.introduction}
                       </View>
