@@ -5,7 +5,8 @@ export default {
     'pages/mine/index',
     'pages/indexDetail/index',
     'pages/exploreDetail/index',
-    'pages/reservation/index'
+    'pages/reservation/index',
+    'pages/mypast/index'
   ],
   window: {
     backgroundTextStyle: 'light',
