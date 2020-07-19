@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import Taro from "@tarojs/taro"
 import { View, Button, Image, Text } from "@tarojs/components"
+import { AtList, AtListItem, AtDivider  }from 'taro-ui'
 import './index.scss'
 import defaultImg from '../../assets/images/default_avatar.jpeg'
 const httpurl = 'http://www.rexjoush.com:3000/wxapp/my/getOpenId'
@@ -66,8 +67,7 @@ export default class Login extends Component {
     })
   }
   //登录
-    getLogin =() => {
-      const { encryptedData, iv } = this.state
+    getLogin =(iv,encryptedData) => {
     Taro.login({
       success: function (res) {
         if (res.code) {
@@ -129,10 +129,12 @@ export default class Login extends Component {
     })
   }
   render() {
-    const { oauthBtnStatus, userInfo, btnText } = this.state
+    const { oauthBtnStatus, userInfo, btnText, iv, encryptedData } = this.state
     return (
       <View className='mine-page'>
-        { oauthBtnStatus ? <Button className='login-btn' type='warn' openType='getUserInfo' onGetUserInfo={this.onGotUserInfo}>{btnText}</Button> : ''}
+        { oauthBtnStatus ? <Button className='login-btn' type='warn' openType='getUserInfo' onGetUserInfo={this.onGotUserInfo}
+        onClick={this.getLogin(iv,encryptedData)}
+        >{btnText}</Button> : ''}
         <View className='mine-item'>
           { userInfo ? 
             <Image src={userInfo.avatarUrl} className='my-avatar' /> 
@@ -147,31 +149,39 @@ export default class Login extends Component {
             </View>
           : <View>获取信息失败</View>}
         </View>
-        {/* <Image src={loginFile} mode='aspectFit' className='login-img' /> */}
         <View className='mine-nav'>
-            <View className='item-content' onClick={this.historyList.bind(this)}>
-              <Text className='text iconfont icon-chakan'>
-                &nbsp;&nbsp;心理测评 &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&gt;
-              </Text>
-            </View>
-            <View className='item-content' >
-              <Text className='text iconfont icon-xingxing'>
-                &nbsp;&nbsp;心理咨询 &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&gt;
-              </Text>
-            </View>
-
-            <View className='item-content' >
-              <Text className='text iconfont icon-kecheng-'>
-                &nbsp;&nbsp;心理课程 &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&gt;
-              </Text>
-            </View>
-            <View className='item-content' >
-              <Text className='text iconfont icon-chengchang'>
-                &nbsp;&nbsp;心理成长活动 &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&gt;
-              </Text>
-            </View>
+          <AtList>
+            <AtListItem
+              title='心理测评'
+              extraText='最近测试'
+              arrow='right'
+              iconInfo={{ size: 25, color: '#78A4FA', value: 'bullet-list', }}
+              onClick={this.historyList.bind(this)}
+            />
+            <AtListItem
+              title='心理咨询'
+              extraText='最近咨询'
+              arrow='right'
+              iconInfo={{ size: 25, color: '#FF4949', value: 'heart-2', }}
+              onClick={this.historyList.bind(this)}
+            />
+            <AtListItem
+              title='心理课程'
+              extraText='最近记录'
+              arrow='right'
+              iconInfo={{ size: 25, color: '#FF9966', value: 'folder', }}
+              onClick={this.historyList.bind(this)}
+            />
+            <AtListItem
+              title='心理成长活动'
+              extraText='最近记录'
+              arrow='right'
+              iconInfo={{ size: 25, color: '#33CC66', value: 'analytics', }}
+              onClick={this.historyList.bind(this)}
+            />
+        </AtList>
         </View>
-        <Button type='warn' style='width:70%;margin-top:70px;font-size:14px'>关于我们</Button>
+        <AtDivider content='--关于我们--' fontColor='#ed3f14' lineColor='#ed3f14' />
       </View>
     )
   }

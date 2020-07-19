@@ -1,0 +1,21 @@
+.history {
+  width: 100%;
+  background-color: #f1f1f1;
+  padding-bottom: 40px;
+  .hide {
+    display: none;
+  }
+  .item {
+    &-title {
+      padding-top: 20px;
+      margin-left: 5%;
+      font-size: 34px;
+      font-weight: bold;      
+    }
+  }
+  .at-list {
+    width: 90%;
+    margin: 40px auto;
+    border-radius: 20px;
+  }
+}
