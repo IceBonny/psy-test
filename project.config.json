@@ -82,6 +82,21 @@
 					"id": -1,
 					"name": "pages/reservation/index",
 					"pathName": "pages/reservation/index",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": 5,
+					"name": "pages/exploreDetail/index",
+					"pathName": "pages/exploreDetail/index",
+					"query": "consultant_id=1",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "pages/historyList/index",
+					"pathName": "pages/historyList/index",
+					"query": "",
 					"scene": null
 				}
 			]

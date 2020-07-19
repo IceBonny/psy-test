@@ -6,7 +6,7 @@ export default {
     'pages/indexDetail/index',
     'pages/exploreDetail/index',
     'pages/reservation/index',
-    'pages/mypast/index'
+    'pages/historyList/index'
   ],
   window: {
     backgroundTextStyle: 'light',

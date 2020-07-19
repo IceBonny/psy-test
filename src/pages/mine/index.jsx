@@ -13,7 +13,8 @@ export default class Login extends Component {
     unlogin: true,
     logined: false,
     encryptedData: '',
-    iv: ''
+    iv: '',
+    openId: ''
   }
   componentWillMount() {
     // 获取授权状态
@@ -122,6 +123,11 @@ export default class Login extends Component {
         })
     }
   }
+  historyList() {
+    Taro.navigateTo({
+      url: `/pages/historyList/index`
+    })
+  }
   render() {
     const { oauthBtnStatus, userInfo, btnText } = this.state
     return (
@@ -143,7 +149,7 @@ export default class Login extends Component {
         </View>
         {/* <Image src={loginFile} mode='aspectFit' className='login-img' /> */}
         <View className='mine-nav'>
-            <View className='item-content' >
+            <View className='item-content' onClick={this.historyList.bind(this)}>
               <Text className='text iconfont icon-chakan'>
                 &nbsp;&nbsp;心理测评 &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&gt;
               </Text>

@@ -1,0 +1,16 @@
+.ex-detail {
+  width: 100%;
+  min-height: 1000px;
+  .form-item {
+    width: 100%;
+    display: inline-flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 28px;
+    font-weight: bolder;
+    margin: 15px 0;
+    radio  {
+      font-size: 22px;
+    }
+  }
+}
