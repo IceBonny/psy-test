@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
-import { View, Text, Image, Radio,RadioGroup,Label  } from '@tarojs/components'
+import { View, Text, Image, Radio,RadioGroup,Label,Checkbox  } from '@tarojs/components'
 import api from '../../utils/api'
-import { AtButton, AtAvatar, AtForm, AtInput,AtInputNumber,AtCard,AtDivider,AtNoticebar     } from 'taro-ui'
+import { AtButton, AtAvatar, AtForm ,AtInputNumber, AtCard, AtDivider, AtNoticebar } from 'taro-ui'
 import './index.scss'
 
 export default class Detail extends Component {
@@ -33,7 +33,7 @@ export default class Detail extends Component {
           conData.map((item,index) => {
             return(
               <AtCard
-              note='小Tips'
+              // note='小Tips'
               extra='查看预约须知'
               title='预约信息'
             >
@@ -41,7 +41,8 @@ export default class Detail extends Component {
               onSubmit={this.onSubmit.bind(this)}
               >
                 <View className='form-item'>
-                  <Text>预约老师</Text><AtAvatar circle image={item.img_url}></AtAvatar>
+                  <Text>预约老师：{item.consultant_name}</Text>
+                 <AtAvatar circle image={item.img_url}></AtAvatar>
                 </View>
                 <View className='form-item'>
                   <Text>咨询方式</Text>
@@ -79,12 +80,19 @@ export default class Detail extends Component {
                   <Text>暂无可用</Text>
                 </View>
                 <AtDivider />
-                <View style='display:flex;justifiy-content:flex-end'>
-                  <Text>小计：￥{item.price}</Text>
+                <View className='form-item' style='justify-content:flex-end;padding-bottom:20px'>
+                  <Text>小计：{item.price}</Text>
                 </View>
-                <AtButton formType='submit'>提交</AtButton>
+                <AtDivider />
+                <View className='form-item'>
+                  <Text style='font-weight:100'>
+                    同意
+                    <Text style='color:#3399FF'>《心理咨询预约协议》</Text>
+                    与
+                    <Text style='color:#3399FF'>《知情同意书》</Text></Text>
+                </View>
+                <AtButton circle type='primary' formType='submit'>确认支付</AtButton>
               </AtForm>
-              这也是内容区 可以随意定义功能
             </AtCard>
             )
           })

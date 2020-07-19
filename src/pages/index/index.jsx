@@ -73,7 +73,7 @@ export default class Index extends Component {
           <View className={currentNavtab==0 ? 'show' : 'hide'}>
               {
                 testData.map((item,index) => 
-                <View className='test-item' key={item.test_id} onClick={this.goDetail.bind(this, item.test_id)}>
+                <View className='test-item' key={index} onClick={this.goDetail.bind(this, item.test_id)}>
                   <View className='test-title'>{item.name}</View>
                   <View className='test-intro'>{item.introduction}</View>
                 </View>
@@ -83,7 +83,7 @@ export default class Index extends Component {
             <View className={currentNavtab==1 ? 'show' : 'hide'}>
             {
                 conData.map((item,index) => 
-                <View className="haveImg-item" key={item.consultant_id}
+                <View className="haveImg-item" key={index}
                 onClick={this.goconDetail.bind(this, item.consultant_id)}
                 >
                   <Image src={item.img_url} />
@@ -100,7 +100,7 @@ export default class Index extends Component {
             <View className={currentNavtab==2 ? 'show' : 'hide'}>
             {
                 courseData.map((item,index) => 
-                <View className="haveImg-item" key={item.course_id}
+                <View className="haveImg-item" key={index}
                 onClick={this.gocourseDetail.bind(this, item.course_id)}
                 >
                   <Image src={item.img_url} />
@@ -116,7 +116,7 @@ export default class Index extends Component {
             <View className={currentNavtab==3 ? 'show' : 'hide'}>
             {
                 eapData.map((item,index) => 
-                <View className="haveImg-item" key={item.eap_id}
+                <View className="haveImg-item" key={index}
                 onClick={this.goeapDetail.bind(this, item.eap_id)}
                 >
                   <Image src={item.img_url} />
