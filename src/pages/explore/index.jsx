@@ -1,9 +1,9 @@
 import React, { Component } from 'react'
 import Taro from '@tarojs/taro'
 import { View, Text, Image } from '@tarojs/components'
-
+import { AtTabs, AtTabsPane, AtList, AtListItem } from 'taro-ui'
 import api from '../../utils/api'
-import navTab from './const'
+import { navTab, conTabList} from './const'
 import './index.scss'
 
 export default class Explore extends Component {
@@ -15,14 +15,19 @@ export default class Explore extends Component {
       conTab: 0,              //咨询服务二级分类标识
       categoryList: [],       //全部分类列表
       testData: [],           //按分类列表获取的数据
-      // consultantList: [], //全部咨询师
+      consultantList: [], //全部咨询师
       courseData: [],     //全部线上课程
       growList: [],       //心理成长活动列表
     }
   }
+  handleClick (value) {
+    this.setState({
+      conTab: value
+    })
+  }
 
   render () {
-    const { navTabActive, testTab,conTab, categoryList, testData, courseData, growList } = this.state
+    const { navTabActive, testTab,conTab, categoryList, consultantList,  testData, courseData, growList } = this.state
 
     return (
       <View className='explore'>
@@ -62,8 +67,37 @@ export default class Explore extends Component {
               </View>
             </View>
             <View className={navTabActive==1 ? 'show' : 'hide'}>
-              <Text>心理咨询</Text>
-              {/* TODO 二级分类 */}
+            <AtTabs
+              scroll
+              current={conTab}
+              tabList={conTabList}
+              onClick={this.handleClick.bind(this)}>
+              <AtTabsPane current={conTab} index={0}>
+                <AtList>
+                  {consultantList.map((item,index) => {
+                    return (
+                      <AtListItem
+                        key={index}
+                        title={`咨询师名称：${item.consultant_name}`}
+                        // arrow='right'
+                        thumb={item.img_url}
+                        onClick={this.goconDetail.bind(this, item.consultant_id)}
+                      />
+                      )
+                    })
+                  }
+              </AtList>
+              </AtTabsPane>
+              <AtTabsPane current={conTab} index={1}>
+                <View>标签页2的内容</View>
+              </AtTabsPane>
+              <AtTabsPane current={conTab} index={2}>
+                <View>标签页3的内容</View>
+              </AtTabsPane>
+              <AtTabsPane current={conTab} index={3}>
+                <View>标签页4的内容</View>
+              </AtTabsPane>
+              </AtTabs>
             </View>
             <View className={navTabActive==2 ? 'show courseList' : 'hide'}>
               {courseData.map((item,index) => {
@@ -106,6 +140,7 @@ export default class Explore extends Component {
     this.getCategoryData()
     this.getCourseList()
     this.getPsyGrowList()
+    this.getConsultantList()
   }
 
   componentDidMount () { }
@@ -143,15 +178,20 @@ export default class Explore extends Component {
     })
   }
   // 获取全部咨询师
-  // getConsultantList() {
-  //   api.get('/discover/getConsultantList').then((res) => {
-  //     const data = res.data.data
-  //     this.setState({
-  //       consultantList: data
-  //     })
-  //     console.log('getConsultantList',res.data.data)
-  //   })
-  // }
+  getConsultantList() {
+    api.get('/discover/getConsultantList').then((res) => {
+      const data = res.data.data
+      this.setState({
+        consultantList: data
+      })
+      console.log('getConsultantList',res.data.data)
+    })
+  }
+  goconDetail(conid, e) {
+    Taro.navigateTo({
+      url: `/pages/exploreDetail/index?conid=${encodeURIComponent(conid)}`
+    })
+  }
   gocourseDetail() {
     
   }

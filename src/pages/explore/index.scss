@@ -14,11 +14,11 @@ View {
   color: transparent;
 }
 .ex-wrp{
-display: flex;
-justify-content: flex-start;
-align-items: center;
-width: auto;
-background-color: rgb(255, 187, 0);
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  width: auto;
+  background-color: rgb(255, 187, 0);
 }
 .active {
 color: #ffffff !important;
@@ -30,22 +30,22 @@ white-space: nowrap;
 overflow-x: scroll;
 }
 .ex-item {
-height: 80px;
-margin: 0 15px;
-line-height: 80px;
-font-size: 30px;
-color: rgb(24, 23, 23);
+  height: 80px;
+  margin: 0 15px;
+  line-height: 80px;
+  font-size: 30px;
+  color: rgb(24, 23, 23);
 }
 scrollbar { width: 0 !important }
 .tab-content {    
   min-height: 1200px;
-  background-image: url('../../assets//images/exbg.jpeg');
+  background: #f1f1f1;
+  
   background-size: 100%;
-  opacity: 0.8;
   .test-item {
     height: 100px;
-    background-color: rgba(255, 38, 0, 0.164);
-    border-bottom: 5px solid rgba(244, 96, 96, 0.575);
+    background-color: #fff;
+    border-bottom: 3px solid #ccc;
     color: black;
     font-size: 30px;
     line-height: 100px;
@@ -55,7 +55,8 @@ scrollbar { width: 0 !important }
     width: 100%;
     .course-item {
       width: 100%;
-      border-bottom: 5px solid sandybrown;
+      background-color: #fff;
+      border-bottom: 3px solid #ccc;
       height: 200px;
       color: black;
       .item-title, .item-price{
@@ -67,4 +68,7 @@ scrollbar { width: 0 !important }
       }
     }
   }
+}
+.at-list__item {
+  font-size: 34px;
 }

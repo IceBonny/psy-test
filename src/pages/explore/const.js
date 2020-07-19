@@ -24,26 +24,34 @@ const navTab = [
     id: 'nav6',
   },
 ]
-const conTab = [
+const conTabList = [
   {
-    name: '全部',
+    title: '全部',
     id: 'all'
   },
   {
-    name: '擅长领域',
+    title: '擅长领域',
     id: 11
   },
   {
-    name: '价格',
+    title: '价格',
     id: 22
   },
   {
-    name: '咨询形式',
+    title: '线上咨询',
     id: 33
   },
   {
-    name: '性别',
+    title: '面对面咨询',
+    id: 77
+  },
+  {
+    title: '男士',
     id: 44
   },
+  {
+    title: '女士',
+    id: 55
+  }
 ]
-export default navTab
+export { navTab, conTabList }
