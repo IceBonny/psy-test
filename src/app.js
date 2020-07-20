@@ -8,7 +8,6 @@
 import React, { Component } from 'react'
 import Taro from '@tarojs/taro'
 import 'taro-ui/dist/style/index.scss'
-import './fonts/iconfont.css'
 
 class App extends Component {
 
