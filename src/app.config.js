@@ -6,7 +6,8 @@ export default {
     'pages/indexDetail/index',
     'pages/exploreDetail/index',
     'pages/reservation/index',
-    'pages/historyList/index'
+    'pages/historyList/index',
+    'pages/consultantDetail/index.jsx'
   ],
   window: {
     backgroundTextStyle: 'light',

@@ -13,6 +13,7 @@ export default class Explore extends Component {
       navTabActive: 0,     
       testTab: 0,             //test二级分类标识
       conTab: 0,              //咨询服务二级分类标识
+      conList: [],
       categoryList: [],       //全部分类列表
       testData: [],           //按分类列表获取的数据
       consultantList: [], //全部咨询师
@@ -20,14 +21,17 @@ export default class Explore extends Component {
       growList: [],       //心理成长活动列表
     }
   }
-  handleClick (value) {
+  switchConsultant(value) {
+    console.log('contab', value)
     this.setState({
       conTab: value
     })
+    this.getConsultantByCategory(value)
+    
   }
 
   render () {
-    const { navTabActive, testTab,conTab, categoryList, consultantList,  testData, courseData, growList } = this.state
+    const { navTabActive, testTab,conTab, categoryList, consultantList,  testData, courseData, growList, conList } = this.state
 
     return (
       <View className='explore'>
@@ -56,7 +60,7 @@ export default class Explore extends Component {
                   {testData.map((item,index) => {
                     return(
                       <View key={item.test_id} className={ testTab === item.category_id ? 'show test-item': 'hide'}
-                      onClick={this.gotoPsyTest.bind(this, item.test_id)}
+                        onClick={this.gotoPsyTest.bind(this, item.test_id)}
                       >
                         {item.name}
                         {item.introduction}
@@ -71,7 +75,7 @@ export default class Explore extends Component {
               scroll
               current={conTab}
               tabList={conTabList}
-              onClick={this.handleClick.bind(this)}>
+              onClick={this.switchConsultant.bind(this)}>
               <AtTabsPane current={conTab} index={0}>
                 <AtList>
                   {consultantList.map((item,index) => {
@@ -89,13 +93,60 @@ export default class Explore extends Component {
               </AtList>
               </AtTabsPane>
               <AtTabsPane current={conTab} index={1}>
-                <View>标签页2的内容</View>
+                {conList.map((item,index) => {
+                  return (
+                    <AtListItem
+                      key={index}
+                      title={`咨询师名称：${item.consultant_name}`}
+                      // arrow='right'
+                      thumb={item.img_url}
+                      onClick={this.goconDetail.bind(this, item.consultant_id)}
+                    />
+                    )
+                  })
+                }
               </AtTabsPane>
               <AtTabsPane current={conTab} index={2}>
-                <View>标签页3的内容</View>
+              {conList.map((item,index) => {
+                  return (
+                    <AtListItem
+                      key={index}
+                      title={`咨询师名称：${item.consultant_name}`}
+                      // arrow='right'
+                      thumb={item.img_url}
+                      onClick={this.goconDetail.bind(this, item.consultant_id)}
+                    />
+                    )
+                  })
+                }
               </AtTabsPane>
               <AtTabsPane current={conTab} index={3}>
-                <View>标签页4的内容</View>
+              {conList.map((item,index) => {
+                  return (
+                    <AtListItem
+                      key={index}
+                      title={`咨询师名称：${item.consultant_name}`}
+                      // arrow='right'
+                      thumb={item.img_url}
+                      onClick={this.goconDetail.bind(this, item.consultant_id)}
+                    />
+                    )
+                  })
+                }
+              </AtTabsPane>
+              <AtTabsPane current={conTab} index={4}>
+              {conList.map((item,index) => {
+                  return (
+                    <AtListItem
+                      key={index}
+                      title={`咨询师名称：${item.consultant_name}`}
+                      // arrow='right'
+                      thumb={item.img_url}
+                      onClick={this.goconDetail.bind(this, item.consultant_id)}
+                    />
+                    )
+                  })
+                }
               </AtTabsPane>
               </AtTabs>
             </View>
@@ -189,7 +240,7 @@ export default class Explore extends Component {
   }
   goconDetail(conid, e) {
     Taro.navigateTo({
-      url: `/pages/exploreDetail/index?conid=${encodeURIComponent(conid)}`
+      url: `/pages/consultantDetail/index?conid=${encodeURIComponent(conid)}`
     })
   }
   gocourseDetail() {
@@ -207,15 +258,15 @@ export default class Explore extends Component {
     })
   }
   // 按标签获取心理咨询师
-  // getConsultantByCategory(id) {
-  //   api.get('/discover/getConsultantList',id).then((res) => {
-  //     const data = res.data.data
-  //     this.setState({
-  //       conList: data
-  //     })
-  //     console.log('getConsultantList',res.data.data)
-  //   })
-  // }
+  getConsultantByCategory(id) {
+    api.get('/discover/getConsultantByCategory',{secondCateId: id}).then((res) => {
+      const data = res.data.data
+      console.log('按标签获取心理咨询师', data)
+      this.setState({
+        conList: data
+      })
+    })
+  }
   // 获取全部线上课程
   getCourseList() {
     api.get('/discover/getCourseList')

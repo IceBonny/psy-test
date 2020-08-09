@@ -15,7 +15,12 @@ export default class Login extends Component {
     logined: false,
     encryptedData: '',
     iv: '',
-    openId: ''
+    openId: '',
+    isTest: 'isTest',
+    isCon: 'isCon',
+    isCourse: 'isCourse',
+    isGrow: 'isGrow',
+
   }
   componentWillMount() {
     // 获取授权状态
@@ -23,13 +28,6 @@ export default class Login extends Component {
     //检查是否失效
     this.checkAuth()
   }
-
-  componentDidMount() {}
-
-  componentWillUnmount() {}
-
-  componentDidShow() {}
-
   componentDidHide() {}
   // 获取用户授权结果
   getOauthStatus = () => {
@@ -67,17 +65,22 @@ export default class Login extends Component {
     })
   }
   //登录
-    getLogin =(iv,encryptedData) => {
+    getLogin =(encryptedData, iv) => {
+      var that = this
     Taro.login({
       success: function (res) {
         if (res.code) {
-          //发起网络请求
           Taro.request({
             url:  httpurl,
             data: {
               code: res.code,
               encryptedData: encryptedData,
-              iv: iv
+              iv:iv
+            },
+            success: function (res) {
+              that.setState({
+                openId: res.data
+              })
             }
           })
           console.log('----sucess', res)
@@ -88,19 +91,18 @@ export default class Login extends Component {
     })
   }
   // 获取用户信息
-  getUserInfo = () => {
+  getUserInfo = (e) => {
     Taro.getUserInfo({
       lang: 'zh_CN'
     }).then( res => { // 获取成功
-      this.setState(()=>({
+      console.log('res获取用户信息', res)
+      this.setState({
         userInfo: res.userInfo,
         iv: res.iv,
         encryptedData: res.encryptedData
+      },() => {
+        this.getLogin(res.encryptedData,res.iv)
       })
-    )
-      console.log('---iv----', res.iv)
-      console.log('encryptedData', res.encryptedData)
-      console.log(' res.userInfo',  res.userInfo)
     }).catch( err => console.log(err) )
   }
   // 用户授权操作后按钮回调
@@ -123,17 +125,17 @@ export default class Login extends Component {
         })
     }
   }
-  historyList() {
+  historyList(openId, flag, e) {
     Taro.navigateTo({
-      url: `/pages/historyList/index`
+      url: `/pages/historyList/index?openId=${encodeURIComponent(openId)}&flag=${flag}`
     })
   }
   render() {
-    const { oauthBtnStatus, userInfo, btnText, iv, encryptedData } = this.state
+    const { oauthBtnStatus, userInfo, btnText, openId, isTest, isCon, isCourse,isGrow } = this.state
     return (
       <View className='mine-page'>
         { oauthBtnStatus ? <Button className='login-btn' type='warn' openType='getUserInfo' onGetUserInfo={this.onGotUserInfo}
-        onClick={this.getLogin(iv,encryptedData)}
+        onClick={this.getUserInfo}
         >{btnText}</Button> : ''}
         <View className='mine-item'>
           { userInfo ? 
@@ -156,28 +158,28 @@ export default class Login extends Component {
               extraText='最近测试'
               arrow='right'
               iconInfo={{ size: 25, color: '#78A4FA', value: 'bullet-list', }}
-              onClick={this.historyList.bind(this)}
+              onClick={this.historyList.bind(this,openId,isTest)}
             />
             <AtListItem
               title='心理咨询'
               extraText='最近咨询'
               arrow='right'
               iconInfo={{ size: 25, color: '#FF4949', value: 'heart-2', }}
-              onClick={this.historyList.bind(this)}
+              onClick={this.historyList.bind(this, openId, isCon)}
             />
             <AtListItem
               title='心理课程'
               extraText='最近记录'
               arrow='right'
               iconInfo={{ size: 25, color: '#FF9966', value: 'folder', }}
-              onClick={this.historyList.bind(this)}
+              onClick={this.historyList.bind(this, openId, isCourse)}
             />
             <AtListItem
               title='心理成长活动'
               extraText='最近记录'
               arrow='right'
               iconInfo={{ size: 25, color: '#33CC66', value: 'analytics', }}
-              onClick={this.historyList.bind(this)}
+              onClick={this.historyList.bind(this, openId,isGrow)}
             />
         </AtList>
         </View>

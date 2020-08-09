@@ -49,11 +49,12 @@ export default class Index extends Component {
           indicatorActiveColor='#333'
           circular
           indicatorDots
-          autoplay>
+          autoplay
+        >
             {bannerData.map((item, index) => {
               return (
                 <SwiperItem  key={index}>
-                  <Image src={item.img_url} className="banner" mode="widthFix" />
+                  <Image src={item.img_url} className='banner' mode='widthFix' />
                 </SwiperItem>
               )
             })}
@@ -61,8 +62,9 @@ export default class Index extends Component {
         <View className='tab_menu' >
         {
           navTab.map((item,index) => {
-            return (<View className={currentNavtab === index ? 'menu_item point' : 'menu_item' } key={index} 
-            onClick={this.switchTab.bind(this,index)}>
+            return (<View className={currentNavtab === index ? 'menu_item point' : 'menu_item'} key={index} 
+              onClick={this.switchTab.bind(this,index)}
+            >
               <Image src={item.img} className='menu_icon' />
               <Text className='menu_name'>{item.name}</Text>
             </View>)
@@ -83,13 +85,13 @@ export default class Index extends Component {
             <View className={currentNavtab==1 ? 'show' : 'hide'}>
             {
                 conData.map((item,index) => 
-                <View className="haveImg-item" key={index}
-                onClick={this.goconDetail.bind(this, item.consultant_id)}
+                <View className='haveImg-item' key={index}
+                  onClick={this.goconDetail.bind(this, item.consultant_id)}
                 >
                   <Image src={item.img_url} />
-                  <View className="item-info">
-                      <View className="item-title">{item.expertise}</View>
-                      <View className="item-text">{item.introduction}</View>
+                  <View className='item-info'>
+                      <View className='item-title'>{item.expertise}</View>
+                      <View className='item-text'>{item.introduction}</View>
                       <View className='item-price'>{item.price}</View>
                       <View className='item-form'>{item.form}</View>
                   </View>
@@ -100,12 +102,12 @@ export default class Index extends Component {
             <View className={currentNavtab==2 ? 'show' : 'hide'}>
             {
                 courseData.map((item,index) => 
-                <View className="haveImg-item" key={index}
-                onClick={this.gocourseDetail.bind(this, item.course_id)}
+                <View className='haveImg-item' key={index}
+                  onClick={this.gocourseDetail.bind(this, item.course_id)}
                 >
                   <Image src={item.img_url} />
-                  <View className="item-info">
-                      <View className="item-text">{item.introduction}</View>
+                  <View className='item-info'>
+                      <View className='item-text'>{item.introduction}</View>
                       <View className='item-title'>{item.title}</View>
                       <View className='item-subtitle'>{item.subtitle}</View>
                   </View>
@@ -116,11 +118,11 @@ export default class Index extends Component {
             <View className={currentNavtab==3 ? 'show' : 'hide'}>
             {
                 eapData.map((item,index) => 
-                <View className="haveImg-item" key={index}
-                onClick={this.goeapDetail.bind(this, item.eap_id)}
+                <View className='haveImg-item' key={index}
+                  onClick={this.goeapDetail.bind(this, item.eap_id)}
                 >
                   <Image src={item.img_url} />
-                  <View className="item-info">
+                  <View className='item-info'>
                       <View className='item-title'>{item.title}</View>
                       <View className='item-subtitle'>{item.subtitle}</View>
                   </View>
@@ -213,7 +215,7 @@ export default class Index extends Component {
 
   goconDetail(conid, e) {
     Taro.navigateTo({
-      url: `/pages/exploreDetail/index?conid=${encodeURIComponent(conid)}`
+      url: `/pages/consultantDetail/index?conid=${encodeURIComponent(conid)}`
     })
   }
 

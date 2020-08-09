@@ -31,27 +31,19 @@ const conTabList = [
   },
   {
     title: '擅长领域',
-    id: 11
+    id: 1
   },
   {
     title: '价格',
-    id: 22
-  },
-  {
-    title: '线上咨询',
-    id: 33
-  },
-  {
-    title: '面对面咨询',
-    id: 77
+    id: 2
   },
   {
     title: '男士',
-    id: 44
+    id: 3
   },
   {
     title: '女士',
-    id: 55
+    id: 4
   }
 ]
 export { navTab, conTabList }

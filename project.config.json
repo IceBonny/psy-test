@@ -98,6 +98,13 @@
 					"pathName": "pages/historyList/index",
 					"query": "",
 					"scene": null
+				},
+				{
+					"id": 6,
+					"name": "pages/consultantDetail/index",
+					"pathName": "pages/consultantDetail/index",
+					"query": "",
+					"scene": null
 				}
 			]
 		}

@@ -9,10 +9,11 @@ export default class Detail extends Component {
     super(...arguments)
     this.state = {
       open: false,
-      isTest: true,
-      isCon: true,
-      isCourse: true,
-      isGrow: true,
+      flag: '',
+      isTest: false,
+      isCon: false,
+      isCourse: false,
+      isGrow: false,
       testList: [
         {
           test_id: "aa043be8-7019-4516-bbbb-b8bfd3e18934",
@@ -146,7 +147,7 @@ export default class Detail extends Component {
           <View className='item-title'>最近心理成长活动</View>
           <AtList>
             {
-              growList.map((item,index) => {
+             growList.map((item,index) => {
                 return(
                   <AtListItem
                     key={index}
@@ -164,7 +165,7 @@ export default class Detail extends Component {
     )
   }
   componentWillMount () {
-   
+   this.getId()
   }
 
   componentDidMount () { 
@@ -173,12 +174,35 @@ export default class Detail extends Component {
   
   getId() {
     let url = this.props.tid
-    let conId = this.queryURLParams(url, "conid")
-    console.log('--res',conId)
+    let openId = this.queryURLParams(url, "openId")
+    let flag = this.queryURLParams(url, "flag")
+    if(flag == 'isTest') {
+      this.setState({
+        isTest: true
+      })
+    }else if(flag == 'isCon') {
+      this.setState({
+        isCon: true
+      })
+    }
+    else if(flag == 'isCourse') {
+      this.setState({
+        isCourse: true
+      })
+    }
+    else if(flag == 'isGrow') {
+      this.setState({
+        isGrow: true
+      })
+    }
+    console.log('-----res',flag)
     this.setState({
-      // consultant_id: conId
+      openId: openId
     },() => {
-
+      this.getUserPsyTest(openId)
+      this.getUserConsultant(openId)
+      this.getUserConsultant(openId)
+      this.getUserGrow(openId)
     })
   }
   queryURLParams(url, name) {
@@ -188,9 +212,6 @@ export default class Detail extends Component {
     if (!res) return;
     if (!res[1]) return;
     return res[1];
-  }
-  gotoPay(id, w) {
-    console.log('---gotoPay------id', id)
   }
   
 
