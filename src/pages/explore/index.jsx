@@ -243,8 +243,10 @@ export default class Explore extends Component {
       url: `/pages/consultantDetail/index?conid=${encodeURIComponent(conid)}`
     })
   }
-  gocourseDetail() {
-    
+  gocourseDetail(courseid,e) {
+    Taro.navigateTo({
+      url: `/pages/indexDetail/index?conid=${encodeURIComponent(courseid)}`
+    })
   }
   //按分类获取心理测试
   getPsyTestByCategory(val)  {

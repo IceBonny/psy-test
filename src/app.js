@@ -8,9 +8,9 @@
 import React, { Component } from 'react'
 import Taro from '@tarojs/taro'
 import 'taro-ui/dist/style/index.scss'
+const httpurl = 'http://www.rexjoush.com:3000/wxapp/my/getOpenId'
 
 class App extends Component {
-
   componentWillMount() {
     Taro.getSetting()
       .then(res=>{
@@ -25,6 +25,14 @@ class App extends Component {
       })
       .then(res=>{
         Taro.setStorage({
+          key: 'iv',
+          data: res.iv
+        })
+        Taro.setStorage({
+          key: 'encryptedData',
+          data: res.encryptedData
+        })
+        Taro.setStorage({
           key: 'userInfo',
           data: res.userInfo
         })
@@ -35,7 +43,7 @@ class App extends Component {
   }
 
   componentDidMount () {
-    
+    this.getLogin()
   }
 
   componentDidShow () {}
@@ -43,7 +51,38 @@ class App extends Component {
   componentDidHide () {}
 
   componentDidCatchError () {}
-
+  //登录
+  getLogin() {
+  var that = this
+  Taro.login({
+    success: function (res) {
+      let encryptedData = Taro.getStorageSync('encryptedData')
+      let iv = Taro.getStorageSync('iv')
+      if (res.code) {
+        Taro.request({
+          url:  httpurl,
+          data: {
+            code: res.code,
+            encryptedData: encryptedData,
+            iv:iv
+          },
+          success: function (res) {
+            that.setState({
+              openId: res.data
+            })
+            Taro.setStorage({
+              key: "openId",
+              data: res.data
+            });
+          }
+        })
+        console.log('----sucess', res)
+      } else {
+        console.log('登录失败！' + res.errMsg)
+      }
+    }
+  })
+  }
   // this.props.children 是将要会渲染的页面
   render () {
     return this.props.children

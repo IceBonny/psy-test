@@ -5,9 +5,8 @@ export default {
     'pages/mine/index',
     'pages/indexDetail/index',
     'pages/exploreDetail/index',
-    'pages/reservation/index',
     'pages/historyList/index',
-    'pages/consultantDetail/index.jsx'
+    'pages/consultantDetail/index'
   ],
   window: {
     backgroundTextStyle: 'light',

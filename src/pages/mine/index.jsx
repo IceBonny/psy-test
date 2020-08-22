@@ -7,20 +7,22 @@ import defaultImg from '../../assets/images/default_avatar.jpeg'
 const httpurl = 'http://www.rexjoush.com:3000/wxapp/my/getOpenId'
 
 export default class Login extends Component {
-  state = {
-    oauthBtnStatus: true, // 授权按钮是否显示 默认为显示
-    userInfo: null, // 用户信息
-    btnText: '微信授权登录',
-    unlogin: true,
-    logined: false,
-    encryptedData: '',
-    iv: '',
-    openId: '',
-    isTest: 'isTest',
-    isCon: 'isCon',
-    isCourse: 'isCourse',
-    isGrow: 'isGrow',
-
+  constructor() {
+    super()
+    this.state = {
+      oauthBtnStatus: true, // 授权按钮是否显示 默认为显示
+      userInfo: null, // 用户信息
+      btnText: '微信授权登录',
+      unlogin: true,
+      logined: false,
+      encryptedData: '',
+      iv: '',
+      openId: '',
+      isTest: 'isTest',
+      isCon: 'isCon',
+      isCourse: 'isCourse',
+      isGrow: 'isGrow',
+    }
   }
   componentWillMount() {
     // 获取授权状态
@@ -81,6 +83,10 @@ export default class Login extends Component {
               that.setState({
                 openId: res.data
               })
+              Taro.setStorage({
+                key: "openId",
+                data: res.data
+              });
             }
           })
           console.log('----sucess', res)
