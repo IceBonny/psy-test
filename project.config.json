@@ -105,6 +105,12 @@
 					"pathName": "pages/indexDetail/index",
 					"query": "testid=2",
 					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "pages/testIndex/index",
+					"pathName": "pages/testIndex/index",
+					"scene": null
 				}
 			]
 		}

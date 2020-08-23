@@ -6,7 +6,8 @@ export default {
     'pages/indexDetail/index',
     'pages/exploreDetail/index',
     'pages/historyList/index',
-    'pages/consultantDetail/index'
+    'pages/consultantDetail/index',
+    'pages/testIndex/index'
   ],
   window: {
     backgroundTextStyle: 'light',

@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 import Taro from '@tarojs/taro'
 import { View, Text, Image, Button  } from '@tarojs/components'
 import api from '../../utils/api'
-const threeurl = 'http://101.32.22.170:39000/appLogin'
 
 export default class Detail extends Component {
   constructor () {
@@ -86,25 +85,8 @@ export default class Detail extends Component {
     return res[1];
   }
   gotoTest(id, w) {
-    const openId = Taro.getStorageSync('openId')
-    let userInfo = Taro.getStorageSync('userInfo')
-    let authcode = 'RYRtTMIbPqS9nnHP2y8qnF9x'
-    let sexName = '未知'
-    if(userInfo.gender == 1) {
-      sexName = '男'
-    }else if(userInfo.gender == 2) {
-      sexName = '女'
-    }
-    Taro.request({
-      url: threeurl,
-      data: {
-        'authCode': authcode,
-        'userId': openId,
-        'userName': userInfo.nickName,
-        'sex': sexName,
-        'country': userInfo.country,
-        'province': userInfo.province
-      }
+    Taro.navigateTo({
+      url: `/pages/testIndex/index`
     })
   }
   
