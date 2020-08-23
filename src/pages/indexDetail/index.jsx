@@ -73,8 +73,10 @@ export default class Detail extends Component {
     },() => {
       this.getTest(testId)
       this.getCourseData(courseId)
-      this.getEapdetail()
     })
+    if(eapId) {
+      this.getEapdetail()
+    }e
   }
   queryURLParams(url, name) {
     var pattern = new RegExp("[?&#]+" + name + "=([^?&#]+)");
@@ -118,7 +120,7 @@ export default class Detail extends Component {
   }
 
   getEapdetail(id) {
-    api.get('/home/getEapDetails')
+    api.get('/home/getEapDetails',{eap_id: id})
     .then((res) => {
       const data = res.data.data
       this.setState({
