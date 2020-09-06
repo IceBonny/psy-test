@@ -44,6 +44,10 @@ class App extends Component {
 
   componentDidMount () {
     this.getLogin()
+    wx.cloud.init({
+      // env: '',
+      traceUser: true
+    })
   }
 
   componentDidShow () {}

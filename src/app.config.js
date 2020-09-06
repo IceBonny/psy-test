@@ -1,4 +1,5 @@
 export default {
+  cloud:true,
   pages: [
     'pages/index/index',
     'pages/explore/index',
