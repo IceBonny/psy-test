@@ -3,7 +3,7 @@ import Taro from '@tarojs/taro'
 import { View, WebView } from "@tarojs/components"
 // import { AtList, AtListItem, AtDivider  }from 'taro-ui'
 import './index.scss'
-const threeurl = 'http://101.32.22.170:39000/appLogin'
+const threeurl = 'http://81.68.85.184:39000/appLogin'
 export default class TestIndex extends Component {
   constructor () {
     super(...arguments)
@@ -27,7 +27,7 @@ export default class TestIndex extends Component {
   getTestHtml()  {
     const openId = Taro.getStorageSync('openId')
     let userInfo = Taro.getStorageSync('userInfo')
-    let authcode = 'RYRtTMIbPqS9nnHP2y8qnF9x'
+    let authcode = 'xkYMifOKyWRc4LzO6JmJabas'
     let sexName = '未知'
     if(userInfo.gender == 1) {
       sexName = '男'
@@ -39,7 +39,7 @@ export default class TestIndex extends Component {
     url: threeurl,
     data: {
       'authCode': authcode,
-      'userId': openId,
+      'uId': openId,
       'userName': userInfo.nickName,
       'sex': sexName,
       'country': userInfo.country,
