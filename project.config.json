@@ -3,9 +3,9 @@
 	"projectname": "myApp",
 	"description": "pst-testwxApp",
 	"cloudfunctionRoot": "cloud/",
-	"appid": "wxf5518fc768f007a8",
+	"appid": "wxb731f13170eb52d2",
 	"setting": {
-		"urlCheck": false,
+		"urlCheck": true,
 		"es6": false,
 		"enhance": false,
 		"postcss": false,

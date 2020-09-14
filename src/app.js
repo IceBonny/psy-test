@@ -8,7 +8,7 @@
 import React, { Component } from 'react'
 import Taro from '@tarojs/taro'
 import 'taro-ui/dist/style/index.scss'
-const httpurl = 'http://www.rexjoush.com:3000/wxapp/my/getOpenId'
+const httpurl = 'https://www.xinliceliang.com:39666/wxapp/my/getOpenId'
 
 class App extends Component {
   componentWillMount() {

@@ -4,7 +4,7 @@ import { View, Button, Image, Text } from "@tarojs/components"
 import { AtList, AtListItem, AtDivider  }from 'taro-ui'
 import './index.scss'
 import defaultImg from '../../assets/images/default_avatar.jpeg'
-const httpurl = 'http://www.rexjoush.com:3000/wxapp/my/getOpenId'
+const httpurl = 'https://www.xinliceliang.com:39666/wxapp/my/getOpenId'
 
 export default class Login extends Component {
   constructor() {
