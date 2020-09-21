@@ -46,6 +46,7 @@ class App extends Component {
     this.getLogin()
     wx.cloud.init({
       // env: '',
+      env: 'joush-bonny-jqru5',
       traceUser: true
     })
   }

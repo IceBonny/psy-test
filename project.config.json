@@ -2,7 +2,7 @@
 	"miniprogramRoot": "dist/",
 	"projectname": "myApp",
 	"description": "pst-testwxApp",
-	"cloudfunctionRoot": "cloud/",
+	"cloudfunctionRoot": "cloud/main/",
 	"appid": "wxb731f13170eb52d2",
 	"setting": {
 		"urlCheck": true,
