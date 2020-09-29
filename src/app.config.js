@@ -17,25 +17,25 @@ export default {
     navigationBarTextStyle: 'black'
   },
   tabBar: {
-    color: 'rgba(68, 68, 68, 1)',
-    selectedColor: 'rgba(68, 68, 68, 1)',
-    backgroundColor: 'white',
+    color: '#444444',
+    selectedColor: '#444444',
+    backgroundColor: '#ffffff',
     list: [
       {
         pagePath: 'pages/index/index',
-        text: '首页',
+        // text: '首页',
         iconPath: './assets/images/home.png',
         selectedIconPath: './assets/images/home@selected.png'
       },
       {
         pagePath: 'pages/explore/index',
-        text: '发现',
+        // text: '发现',
         iconPath: './assets/images/explore.png',
         selectedIconPath: './assets/images/explore@selected.png'
       },
       {
         pagePath: 'pages/mine/index',
-        text: '我的',
+        // text: '我的',
         iconPath: './assets/images/my.png',
         selectedIconPath: './assets/images/my@selected.png'
       }

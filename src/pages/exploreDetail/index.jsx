@@ -141,13 +141,27 @@ export default class Detail extends Component {
 
   //获取咨询师详情
   getConData(id) {
-    api.get('/home/getConsultantDetails', {consultant_id: id})
-    .then((res) => {
-      const data = res.data.data
-      this.setState({
-        conData: data
-      })
-      console.log('++++++++++',data)
+    wx.cloud.callFunction({
+      name: 'api',
+      data: {
+        url: '/home/getConsultantDetails',
+        consultant_id: id
+      },
+      success: (res) => {
+        let data = JSON.parse(res.result);
+        console.log(data);
+        this.setState({
+          conData: data.data
+        })
+      }
     })
+    // api.get('/home/getConsultantDetails', {consultant_id: id})
+    // .then((res) => {
+    //   const data = res.data.data
+    //   this.setState({
+    //     conData: data
+    //   })
+    //   console.log('++++++++++',data)
+    // })
   }
 }

@@ -181,13 +181,11 @@ export default class Explore extends Component {
               <Text>员工辅助计划（EAP）</Text>
             </View>
         </View>
-          
-           
-
       </View>
     )
   }
   componentWillMount () { 
+    wx.cloud.init()
     this.getCategoryData()
     this.getCourseList()
     this.getPsyGrowList()
@@ -213,29 +211,56 @@ export default class Explore extends Component {
   }
   // 获取全部分类列表
   getCategoryData() {
-    api.get('/discover/getCategoryList').then((res) => {
-      const data = res.data.data
-      this.setState({
-        categoryList: data
-      }, () => {
-        setTimeout(() => {
-          this.setState({
-            testTab: data[0].category_id
-          },() => {
-            this.getPsyTestByCategory(data[0].category_id)
-          })
-        },10)
-      })
+    wx.cloud.callFunction({
+      name: 'api',
+      data: {
+        url: '/discover/getCategoryList'
+      },
+      success: (res) => {
+        let data = JSON.parse(res.result);
+        console.log(data);
+        this.setState({
+          categoryList: data.data
+        }, () => {
+          setTimeout(() => {
+            this.setState({
+              testTab: data.data[0].category_id
+            },() => {
+              this.getPsyTestByCategory(data.data[0].category_id)
+            })
+          },10)
+        })
+      }
     })
+    // api.get('/discover/getCategoryList').then((res) => {
+    //   const data = res.data.data
+    //   this.setState({
+    //     categoryList: data
+    //   }, () => {
+    //     setTimeout(() => {
+    //       this.setState({
+    //         testTab: data[0].category_id
+    //       },() => {
+    //         this.getPsyTestByCategory(data[0].category_id)
+    //       })
+    //     },10)
+    //   })
+    // })
   }
   // 获取全部咨询师
   getConsultantList() {
-    api.get('/discover/getConsultantList').then((res) => {
-      const data = res.data.data
-      this.setState({
-        consultantList: data
-      })
-      console.log('getConsultantList',res.data.data)
+    wx.cloud.callFunction({
+      name: 'api',
+      data: {
+        url: '/discover/getConsultantList'
+      },
+      success: (res) => {
+        let data = JSON.parse(res.result);
+        console.log(data);
+        this.setState({
+          consultantList: data.data
+        })
+      }
     })
   }
   goconDetail(conid, e) {
@@ -250,46 +275,69 @@ export default class Explore extends Component {
   }
   //按分类获取心理测试
   getPsyTestByCategory(val)  {
-    api.get('/discover/getPsyTestByCategory',{category_id: val})
-    .then((res) => {
-      const data = res.data.data
-      console.log('const data = res.data.data' ,data)
-      this.setState({
-        testData: data
-      })
+    wx.cloud.callFunction({
+      name: 'api',
+      data: {
+        url: '/discover/getPsyTestByCategory',
+        category_id: val
+      },
+      success: (res) => {
+        let data = JSON.parse(res.result);
+        console.log(data);
+        this.setState({
+          testData: data.data
+        })
+      }
     })
   }
   // 按标签获取心理咨询师
   getConsultantByCategory(id) {
-    api.get('/discover/getConsultantByCategory',{secondCateId: id}).then((res) => {
-      const data = res.data.data
-      console.log('按标签获取心理咨询师', data)
-      this.setState({
-        conList: data
-      })
+    wx.cloud.callFunction({
+      name: 'api',
+      data: {
+        url: '/discover/getConsultantByCategory',
+        secondCateId:  id
+      },
+      success: (res) => {
+        let data = JSON.parse(res.result);
+        console.log(data);
+        this.setState({
+          conList: data.data
+        })
+      }
     })
   }
   // 获取全部线上课程
   getCourseList() {
-    api.get('/discover/getCourseList')
-    .then((res) => {
-      const data = res.data.data
-      this.setState({
-        courseData: data
-      })
-      console.log('courseData', data)
+    wx.cloud.callFunction({
+      name: 'api',
+      data: {
+        url: '/discover/getCourseList'
+      },
+      success: (res) => {
+        let data = JSON.parse(res.result);
+        console.log(data);
+        this.setState({
+          courseData: data.data
+        })
+      }
     })
   }
 
   // 获取全部心理成长活动
   getPsyGrowList() {
-    api.get('/discover/getPsyGrowList')
-    .then((res) => {
-      const data = res.data.data
-      this.setState({
-        growList: data
-      })
-      console.log('growList',res.data.data)
+    wx.cloud.callFunction({
+      name: 'api',
+      data: {
+        url: '/discover/getPsyGrowList'
+      },
+      success: (res) => {
+        let data = JSON.parse(res.result);
+        console.log(data);
+        this.setState({
+          growList: data.data
+        })
+      }
     })
   }
   //心理测试 二级页面

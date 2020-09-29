@@ -136,6 +136,7 @@ export default class Index extends Component {
   }
   componentWillMount () {
     this.getData()
+    wx.cloud.init()
    }
 
   componentDidMount () { 
@@ -157,55 +158,120 @@ export default class Index extends Component {
   }
   
   getBannerData() {
-    api.get('/home/getBannerData').then((res) => {
-      const data = res.data.data
-      this.setState({
-        bannerData: data
-      })
-      console.log('res',res.data.data)
+    wx.cloud.callFunction({
+      name: 'api',
+      data: {
+        url: '/home/getBannerData'
+      },
+      success: (res) => {
+        let data = JSON.parse(res.result);
+        console.log(data);
+        this.setState({
+          bannerData: data.data
+        })
+      }
     })
+    // api.get('/home/getBannerData').then((res) => {
+    //   const data = res.data.data
+    //   this.setState({
+    //     bannerData: data
+    //   })
+    //   console.log('res',res.data.data)
+    // })
   }
 
   // 获取心理测评数据
   getContent() {
-    api.get('/home/getPsyTestData')
-    .then((res) => {
-      const data = res.data.data
-      this.setState({
-        testData: data
-      })
+    wx.cloud.callFunction({
+      name: 'api',
+      data: {
+        url: '/home/getPsyTestData'
+      },
+      success: (res) => {
+        let data = JSON.parse(res.result);
+        console.log(data);
+        this.setState({
+          testData: data.data
+        })
+      }
     })
+    // api.get('/home/getPsyTestData')
+    // .then((res) => {
+    //   const data = res.data.data
+    //   this.setState({
+    //     testData: data
+    //   })
+    // })
   }
   //获取咨询师
   getConsultant() {
-    api.get('/home/getPsyCounseling')
-    .then((res) => {
-      const data = res.data.data
-      this.setState({
-        conData: data
-      })
+    wx.cloud.callFunction({
+      name: 'api',
+      data: {
+        url: '/home/getPsyCounseling'
+      },
+      success: (res) => {
+        let data = JSON.parse(res.result);
+        console.log(data);
+        this.setState({
+          conData: data.data
+        })
+      }
     })
+    // api.get('/home/getPsyCounseling')
+    // .then((res) => {
+    //   const data = res.data.data
+    //   this.setState({
+    //     : data
+    //   })
+    // })
   }
 
   //获取课程
   getCourse() {
-    api.get('/home/getCourseData')
-    .then((res) => {
-      const data = res.data.data
-      this.setState({
-        courseData: data
-      })
+    wx.cloud.callFunction({
+      name: 'api',
+      data: {
+        url: '/home/getCourseData'
+      },
+      success: (res) => {
+        let data = JSON.parse(res.result);
+        console.log(data);
+        this.setState({
+          courseData: data.data
+        })
+      }
     })
+    // api.get('/home/getCourseData')
+    // .then((res) => {
+    //   const data = res.data.data
+    //   this.setState({
+    //     courseData: data
+    //   })
+    // })
   }
   //获取eap
   getEap() {
-    api.get('/home/getEap')
-    .then((res) => {
-      const data = res.data.data
-      this.setState({
-        eapData: data
-      })
+    wx.cloud.callFunction({
+      name: 'api',
+      data: {
+        url: '/home/getEap'
+      },
+      success: (res) => {
+        let data = JSON.parse(res.result);
+        console.log(data);
+        this.setState({
+          eapData: data.data
+        })
+      }
     })
+    // api.get('/home/getEap')
+    // .then((res) => {
+    //   const data = res.data.data
+    //   this.setState({
+    //     eapData: data
+    //   })
+    // })
   }
   goDetail(testid, e) {
     Taro.navigateTo({

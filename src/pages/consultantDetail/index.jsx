@@ -74,13 +74,27 @@ export default class ConDetail extends Component {
     return res[1];
   }
   getDetail(conId) {
-    api.get('/home/getConsultantDetails',{'consultant_id': conId})
-    .then((res) => {
-      const data = res.data.data
-      this.setState({
-        condata: data
-      })
+    wx.cloud.callFunction({
+      name: 'api',
+      data: {
+        url: '/home/getConsultantDetails',
+        consultant_id: conId
+      },
+      success: (res) => {
+        let data = JSON.parse(res.result);
+        console.log(data);
+        this.setState({
+          condata: data.data
+        })
+      }
     })
+    // api.get('/home/getConsultantDetails',{'consultant_id': conId})
+    // .then((res) => {
+    //   const data = res.data.data
+    //   this.setState({
+    //     condata: data
+    //   })
+    // })
   }
   goReserve(conid, e) {
     Taro.navigateTo({

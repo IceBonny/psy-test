@@ -217,48 +217,80 @@ export default class Detail extends Component {
 
   //获取做过的心理测试
   getUserPsyTest(id) {
-    api.get('/my/getUserPsyTest', {openId: id})
-    .then((res) => {
-      const data = res.data.data
-      this.setState({
-        testList: data
-      })
-      console.log('++++++++++',data)
+    wx.cloud.callFunction({
+      name: 'api',
+      data: {
+        url: '/my/getUserPsyTest',
+        openId: id
+      },
+      success: (res) => {
+        let data = JSON.parse(res.result);
+        console.log(data);
+        this.setState({
+          testList: data.data
+        })
+      }
     })
   }
   //获取做过的心理咨询
   getUserConsultant(id) {
-    api.get('/my/getUserConsultant', {openId: id})
-    .then((res) => {
-      const data = res.data.data
-      this.setState({
-        conList: data
-      })
-      console.log('++++++++++',data)
+    wx.cloud.callFunction({
+      name: 'api',
+      data: {
+        url: '/my/getUserConsultant',
+        openId: id
+      },
+      success: (res) => {
+        let data = JSON.parse(res.result);
+        console.log(data);
+        this.setState({
+          conList: data.data
+        })
+      }
     })
   }
 
   //获取用户的线上课程
   getUserCourse(id) {
-    api.get('/my/getUserCourse', {openId: id})
-    .then((res) => {
-      const data = res.data.data
-      this.setState({
-        courseList: data
-      })
-      console.log('++++++++++',data)
+    wx.cloud.callFunction({
+      name: 'api',
+      data: {
+        url: '/my/getUserCourse',
+        openId: id
+      },
+      success: (res) => {
+        let data = JSON.parse(res.result);
+        console.log(data);
+        this.setState({
+          courseList: data.data
+        })
+      }
     })
   }
 
   //获取用户所做的心理成长
   getUserGrow(id) {
-    api.get('/my/getUserGrow', {openId: id})
-    .then((res) => {
-      const data = res.data.data
-      this.setState({
-        growList: data
-      })
-      console.log('++++++++++',data)
+    wx.cloud.callFunction({
+      name: 'api',
+      data: {
+        url: '/my/getUserGrow',
+        openId: id
+      },
+      success: (res) => {
+        let data = JSON.parse(res.result);
+        console.log(data);
+        this.setState({
+          growList: data.data
+        })
+      }
     })
+    // api.get('/my/getUserGrow', {openId: id})
+    // .then((res) => {
+    //   const data = res.data.data
+    //   this.setState({
+    //     growList: data
+    //   })
+    //   console.log('++++++++++',data)
+    // })
   }
 }

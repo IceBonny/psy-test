@@ -3,7 +3,7 @@ import Taro from '@tarojs/taro'
 import { View, WebView } from "@tarojs/components"
 // import { AtList, AtListItem, AtDivider  }from 'taro-ui'
 import './index.scss'
-const threeurl = 'http://81.68.85.184:39000/appLogin'
+// const threeurl = 'http://81.68.85.184:39000/appLogin'
 export default class TestIndex extends Component {
   constructor () {
     super(...arguments)
@@ -35,18 +35,33 @@ export default class TestIndex extends Component {
       sexName = '女'
     }
     console.log('PARAMS',userInfo, authcode, openId)
-  Taro.request({
-    url: threeurl,
-    data: {
-      'authCode': authcode,
-      'uId': openId,
-      'userName': userInfo.nickName,
-      'sex': sexName,
-      'country': userInfo.country,
-      'province': userInfo.province
-    }
-  }).then((res) => {
-    console.log('html', res)
-  })
+    wx.cloud.callFunction({
+      name: 'threeurl',
+      data: {
+        url: '/appLogin',
+        'authCode': authcode,
+        'uId': openId,
+        'userName': userInfo.nickName,
+        'sex': sexName,
+        'country': userInfo.country,
+        'province': userInfo.province
+      },
+      success: (res) => {
+        console.log('html', res)
+      }
+    })
+  // Taro.request({
+  //   url: threeurl,
+  //   data: {
+  //     'authCode': authcode,
+  //     'uId': openId,
+  //     'userName': userInfo.nickName,
+  //     'sex': sexName,
+  //     'country': userInfo.country,
+  //     'province': userInfo.province
+  //   }
+  // }).then((res) => {
+  //   console.log('html', res)
+  // })
   }
 }

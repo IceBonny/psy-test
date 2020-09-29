@@ -76,7 +76,7 @@ export default class Detail extends Component {
     })
     if(eapId) {
       this.getEapdetail()
-    }e
+    }
   }
   queryURLParams(url, name) {
     var pattern = new RegExp("[?&#]+" + name + "=([^?&#]+)");
@@ -95,38 +95,57 @@ export default class Detail extends Component {
 
   // 获取心理测评数据
   getTest(res) {
-    api.get('/home/getPsyTestDetails', {test_id: res})
-    .then((res) => {
-      const data = res.data.data
-      this.setState({
-        testData: data
-      })
+    wx.cloud.callFunction({
+      name: 'api',
+      data: {
+        url: '/home/getPsyTestDetails',
+        test_id: res
+      },
+      success: (res) => {
+        let data = JSON.parse(res.result);
+        console.log(data);
+        this.setState({
+          testData: data.data
+        })
+      }
     })
   }
 
   //获取咨询师详情
   getConData(id) {
-    api.get('/home/getConsultantDetails', {consultant_id: id})
-    .then((res) => {
-      const data = res.data.data
-      this.setState({
-        conData: data
-      })
+    wx.cloud.callFunction({
+      name: 'api',
+      data: {
+        url: '/home/getConsultantDetails',
+        consultant_id: id
+      },
+      success: (res) => {
+        let data = JSON.parse(res.result);
+        console.log(data);
+        this.setState({
+          conData: data.data
+        })
+      }
     })
   }
 
   getCourseData(id) {
-    // api.get('')
   }
 
   getEapdetail(id) {
-    api.get('/home/getEapDetails',{eap_id: id})
-    .then((res) => {
-      const data = res.data.data
-      this.setState({
-        eapData: data
-      })
+    wx.cloud.callFunction({
+      name: 'api',
+      data: {
+        url: '/home/getEapDetails',
+        eap_id: id
+      },
+      success: (res) => {
+        let data = JSON.parse(res.result);
+        console.log(data);
+        this.setState({
+          eapData: data.data
+        })
+      }
     })
   }
-
 }
