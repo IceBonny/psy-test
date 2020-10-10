@@ -49,6 +49,7 @@ class App extends Component {
       env: 'joush-bonny-jqru5',
       traceUser: true
     })
+    this.getOpenId()
   }
 
   componentDidShow () {}
@@ -56,6 +57,20 @@ class App extends Component {
   componentDidHide () {}
 
   componentDidCatchError () {}
+
+  getOpenId() {
+    wx.cloud.callFunction({
+      name: 'openid',
+      success: (res) => {
+        console.log('1111res', res.result)
+        console.log('dada', res.result.openid)
+        Taro.setStorage({
+          key: "openId",
+          data: res.result.openid
+        })
+      }
+    })
+  }
   //登录
   getLogin() {
   var that = this

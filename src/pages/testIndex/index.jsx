@@ -3,21 +3,21 @@ import Taro from '@tarojs/taro'
 import { View, WebView } from "@tarojs/components"
 // import { AtList, AtListItem, AtDivider  }from 'taro-ui'
 import './index.scss'
-// const threeurl = 'http://81.68.85.184:39000/appLogin'
+const threeurl = 'https://www.xinliceliang.com/api/appLogin/'
 export default class TestIndex extends Component {
   constructor () {
     super(...arguments)
     this.state ={
-      htmlUrl: 'http://101.32.22.170:39080/testList.html'
+      htmlUrl: 'https://www.xinliceliang.com/api/appLogin/',
+      src: ''
     }
   }
 
   render() {
-    const { htmlUrl } = this.state
+    const { src } = this.state
     return(
       <View>
-        111
-        <WebView src={htmlUrl} onMessage={this.handleMessage} />
+        <WebView src={src} onMessage={this.handleMessage} />
       </View>
     )
   }
@@ -34,13 +34,18 @@ export default class TestIndex extends Component {
     }else if(userInfo.gender == 2) {
       sexName = '女'
     }
+    this.setState({
+      src:`${this.state.htmlUrl}?authCode=${authcode}&userId=${openId}&userName=${userInfo.nickName}&sex=${sexName}&country=${userInfo.country}&province=${userInfo.province}`
+    },()=> {
+      console.log('src',this.state.src)
+    })
     console.log('PARAMS',userInfo, authcode, openId)
     wx.cloud.callFunction({
       name: 'threeurl',
       data: {
         url: '/appLogin',
         'authCode': authcode,
-        'uId': openId,
+        'userId': openId,
         'userName': userInfo.nickName,
         'sex': sexName,
         'country': userInfo.country,
